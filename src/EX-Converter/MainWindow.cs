@@ -30,9 +30,11 @@ namespace EX_Converter
         private int numActiveSheet;
         private int numStartRow;
         private int numEndRow;
-        private int numL1;
-        private int numL2;
-        private int numName;
+        private int numL1Name;
+        private int numL1Details;
+        private int numL2Name;
+        private int numL2Details;
+        private int numCaseName;
         private int numSummary;
         private int numPreconditions;
         private int numImportance;
@@ -62,11 +64,15 @@ namespace EX_Converter
             this.RadioButtonCases.Select();
             this.writeCasesOnly = true;
 
-            this.textBoxlevel_1.Enabled = false;
-            this.textBoxLevel_2.Enabled = false;
-            this.CheckBoxEnableL2.Checked = false;
+            this.textBoxL1Name.Enabled = false;
+            this.textBoxL1Details.Enabled = false;
+
             this.L2Enabled = false;
-            this.checkBoxAllowDupSuite.Checked = false;
+            this.CheckBoxEnableL2.Checked = false;
+            this.textBoxL2Name.Enabled = false;
+            this.textBoxL2Details.Enabled = false;
+            
+            this.CheckBoxAllowDupSuite.Checked = false;
             this.allowDuplicateSuiteName = false;
             this.readerErrDetected = false;
 
@@ -81,9 +87,9 @@ namespace EX_Converter
             if ((this.textBoxActiveSheet.Text == String.Empty)
                 || (this.textBoxStartRow.Text == String.Empty)
                 || (this.textBoxEndRow.Text == String.Empty)
-                || (this.textBoxName.Text == String.Empty)
-                || ((!this.writeCasesOnly) && (this.textBoxlevel_1.Text == String.Empty))
-                || ((this.L2Enabled) && (this.textBoxLevel_2.Text == String.Empty))
+                || (this.textBoxCaseName.Text == String.Empty)
+                || ((!this.writeCasesOnly) && (this.textBoxL1Name.Text == String.Empty))
+                || ((this.L2Enabled) && (this.textBoxL2Name.Text == String.Empty))
                 )
             {
                 MessageBox.Show("Excel Mapping Error: Mandatory mappings (in bold texts) cannot be empty!");
@@ -100,12 +106,18 @@ namespace EX_Converter
                 return false;
             if (!this.ValidateRow(this.textBoxEndRow.Text, ref numEndRow))
                 return false;
-            if (!this.ValidateColumn(this.textBoxlevel_1.Text, ref numL1))
+
+            if (!this.ValidateColumn(this.textBoxL1Name.Text, ref numL1Name))
                 return false;
-            if (!this.ValidateColumn(this.textBoxLevel_2.Text, ref numL2))
+            if (!this.ValidateColumn(this.textBoxL1Details.Text, ref numL1Details))
                 return false;
 
-            if (!this.ValidateColumn(this.textBoxName.Text, ref numName))
+            if (!this.ValidateColumn(this.textBoxL2Name.Text, ref numL2Name))
+                return false;
+            if (!this.ValidateColumn(this.textBoxL2Details.Text, ref numL2Details))
+                return false;
+
+            if (!this.ValidateColumn(this.textBoxCaseName.Text, ref numCaseName))
                 return false;
             if (!this.ValidateColumn(this.textBoxSummary.Text, ref numSummary))
                 return false;
@@ -211,8 +223,7 @@ namespace EX_Converter
         {
             try
             {
-                this.PrintLog(LogType.Normal, 0, "Start reading data from Excel file: \""
-                    + this.excelPath + "\"");
+                this.PrintLog(LogType.Normal, 0, "Start reading data from Excel file: \""+ this.excelPath +"\"");
 
                 ExcelReader reader = new ExcelReader(
                     this.excelPath,
@@ -222,9 +233,11 @@ namespace EX_Converter
                     this.numActiveSheet,
                     this.numStartRow,
                     this.numEndRow,
-                    this.numL1,
-                    this.numL2,
-                    this.numName,
+                    this.numL1Name,
+                    this.numL1Details,
+                    this.numL2Name,
+                    this.numL2Details,
+                    this.numCaseName,
                     this.numSummary,
                     this.numPreconditions,
                     this.numImportance,
@@ -413,14 +426,16 @@ namespace EX_Converter
             {
                 this.writeCasesOnly = true;
 
-                this.textBoxlevel_1.Enabled = false;
-                this.textBoxlevel_1.Text = null;
+                this.textBoxL1Name.Enabled = false;
+                this.textBoxL1Name.Text = null;
+                this.textBoxL1Details.Enabled = false;
+                this.textBoxL1Details.Text = null;
 
                 this.CheckBoxEnableL2.Checked = false;
                 this.CheckBoxEnableL2.Enabled = false;
 
-                this.checkBoxAllowDupSuite.Checked = false;
-                this.checkBoxAllowDupSuite.Enabled = false;
+                this.CheckBoxAllowDupSuite.Checked = false;
+                this.CheckBoxAllowDupSuite.Enabled = false;
             }
         }
         private void RadioButtonSuite_CheckedChanged(object sender, EventArgs e)
@@ -429,32 +444,36 @@ namespace EX_Converter
             {
                 this.writeCasesOnly = false;
 
-                this.textBoxlevel_1.Enabled = true;
+                this.textBoxL1Name.Enabled = true;
+                this.textBoxL1Details.Enabled = true;
 
                 this.CheckBoxEnableL2.Checked = false;
                 this.CheckBoxEnableL2.Enabled = true;
 
-                this.checkBoxAllowDupSuite.Checked = false;
-                this.checkBoxAllowDupSuite.Enabled = true;
+                this.CheckBoxAllowDupSuite.Checked = false;
+                this.CheckBoxAllowDupSuite.Enabled = true;
             }
         }
         private void CheckBoxEnableL2_CheckedChanged(object sender, EventArgs e)
         {
             if (this.CheckBoxEnableL2.Checked)
             {
-                this.textBoxLevel_2.Enabled = true;
                 this.L2Enabled = true;
+                this.textBoxL2Name.Enabled = true;
+                this.textBoxL2Details.Enabled = true;
             }
             else
             {
-                this.textBoxLevel_2.Enabled = false;
                 this.L2Enabled = false;
-                this.textBoxLevel_2.Text = null;
+                this.textBoxL2Name.Enabled = false;
+                this.textBoxL2Name.Text = null;
+                this.textBoxL2Details.Enabled = false;
+                this.textBoxL2Details.Text = null;
             }
         }
         private void checkBoxAllowDupSuite_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.checkBoxAllowDupSuite.Checked)
+            if (this.CheckBoxAllowDupSuite.Checked)
             {
                 this.allowDuplicateSuiteName = true;
             }
@@ -482,7 +501,14 @@ namespace EX_Converter
                 this.textBoxActiveSheet.Text = string.Empty;
                 this.textBoxStartRow.Text = string.Empty;
                 this.textBoxEndRow.Text = string.Empty;
-                this.textBoxName.Text = string.Empty;
+
+                this.textBoxL1Name.Text = string.Empty;
+                this.textBoxL1Details.Text = string.Empty;
+
+                this.textBoxL2Name.Text = string.Empty;
+                this.textBoxL2Details.Text = string.Empty;
+
+                this.textBoxCaseName.Text = string.Empty;
                 this.textBoxSummary.Text = string.Empty;
                 this.textBoxPreconditions.Text = string.Empty;
                 this.textBoxImportance.Text = string.Empty;
@@ -504,6 +530,81 @@ namespace EX_Converter
                 "About EX-Converter");
         }
         #endregion
+
+        private void label_L2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_L1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelCaseName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxCaseName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxImportance_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelImportance_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxSummary_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelSummary_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxPreconditions_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelPreconditions_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelActions_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxActions_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelExpectedResults_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }

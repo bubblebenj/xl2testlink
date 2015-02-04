@@ -31,41 +31,41 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.TemplateTypeGroupBox = new System.Windows.Forms.GroupBox();
-            this.checkBoxAllowDupSuite = new System.Windows.Forms.CheckBox();
+            this.CheckBoxAllowDupSuite = new System.Windows.Forms.CheckBox();
             this.CheckBoxEnableL2 = new System.Windows.Forms.CheckBox();
             this.RadioButtonSuite = new System.Windows.Forms.RadioButton();
             this.RadioButtonCases = new System.Windows.Forms.RadioButton();
             this.groupBoxSelectPath = new System.Windows.Forms.GroupBox();
             this.buttonSelectXml = new System.Windows.Forms.Button();
             this.buttonSelectExcel = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelXmlPath = new System.Windows.Forms.Label();
+            this.labelExcelPath = new System.Windows.Forms.Label();
             this.textBoxXmlPath = new System.Windows.Forms.TextBox();
             this.textBoxExcelPath = new System.Windows.Forms.TextBox();
             this.groupboxOperations = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.labelImportance = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label_L2 = new System.Windows.Forms.Label();
-            this.label_L1 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelL2Name = new System.Windows.Forms.Label();
+            this.labelL1Name = new System.Windows.Forms.Label();
+            this.labelEndRow = new System.Windows.Forms.Label();
+            this.labelStartRow = new System.Windows.Forms.Label();
+            this.labelActions = new System.Windows.Forms.Label();
+            this.labelExpectedResults = new System.Windows.Forms.Label();
+            this.labelPreconditions = new System.Windows.Forms.Label();
+            this.labelSummary = new System.Windows.Forms.Label();
+            this.labelCaseName = new System.Windows.Forms.Label();
             this.textBoxSummary = new System.Windows.Forms.TextBox();
             this.textBoxExpectedResult = new System.Windows.Forms.TextBox();
             this.textBoxEndRow = new System.Windows.Forms.TextBox();
             this.textBoxImportance = new System.Windows.Forms.TextBox();
             this.textBoxActions = new System.Windows.Forms.TextBox();
-            this.textBoxName = new System.Windows.Forms.TextBox();
+            this.textBoxCaseName = new System.Windows.Forms.TextBox();
             this.textBoxStartRow = new System.Windows.Forms.TextBox();
             this.textBoxPreconditions = new System.Windows.Forms.TextBox();
-            this.textBoxLevel_2 = new System.Windows.Forms.TextBox();
-            this.textBoxlevel_1 = new System.Windows.Forms.TextBox();
+            this.textBoxL2Name = new System.Windows.Forms.TextBox();
+            this.textBoxL1Name = new System.Windows.Forms.TextBox();
             this.textBoxActiveSheet = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelActiveSheet = new System.Windows.Forms.Label();
             this.buttonConvert = new System.Windows.Forms.Button();
             this.logWindow = new System.Windows.Forms.RichTextBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -79,6 +79,10 @@
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.label12 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelL1Details = new System.Windows.Forms.Label();
+            this.textBoxL1Details = new System.Windows.Forms.TextBox();
+            this.labelL2Details = new System.Windows.Forms.Label();
+            this.textBoxL2Details = new System.Windows.Forms.TextBox();
             this.TemplateTypeGroupBox.SuspendLayout();
             this.groupBoxSelectPath.SuspendLayout();
             this.groupboxOperations.SuspendLayout();
@@ -88,67 +92,64 @@
             // 
             // TemplateTypeGroupBox
             // 
-            this.TemplateTypeGroupBox.Controls.Add(this.checkBoxAllowDupSuite);
+            this.TemplateTypeGroupBox.Controls.Add(this.CheckBoxAllowDupSuite);
             this.TemplateTypeGroupBox.Controls.Add(this.CheckBoxEnableL2);
             this.TemplateTypeGroupBox.Controls.Add(this.RadioButtonSuite);
             this.TemplateTypeGroupBox.Controls.Add(this.RadioButtonCases);
             this.TemplateTypeGroupBox.Location = new System.Drawing.Point(6, 5);
             this.TemplateTypeGroupBox.Name = "TemplateTypeGroupBox";
-            this.TemplateTypeGroupBox.Size = new System.Drawing.Size(210, 113);
+            this.TemplateTypeGroupBox.Size = new System.Drawing.Size(210, 122);
             this.TemplateTypeGroupBox.TabIndex = 0;
             this.TemplateTypeGroupBox.TabStop = false;
             this.TemplateTypeGroupBox.Text = "Template Type";
             // 
-            // checkBoxAllowDupSuite
+            // CheckBoxAllowDupSuite
             // 
-            this.checkBoxAllowDupSuite.AutoSize = true;
-            this.checkBoxAllowDupSuite.Location = new System.Drawing.Point(22, 78);
-            this.checkBoxAllowDupSuite.Name = "checkBoxAllowDupSuite";
-            this.checkBoxAllowDupSuite.Size = new System.Drawing.Size(180, 16);
-            this.checkBoxAllowDupSuite.TabIndex = 0;
-            this.checkBoxAllowDupSuite.Text = "Allow Duplicate Suite Name";
-            this.toolTip_12s.SetToolTip(this.checkBoxAllowDupSuite, resources.GetString("checkBoxAllowDupSuite.ToolTip"));
-            this.checkBoxAllowDupSuite.UseVisualStyleBackColor = true;
-            this.checkBoxAllowDupSuite.CheckedChanged += new System.EventHandler(this.checkBoxAllowDupSuite_CheckedChanged);
+            this.CheckBoxAllowDupSuite.AutoSize = true;
+            this.CheckBoxAllowDupSuite.Location = new System.Drawing.Point(22, 85);
+            this.CheckBoxAllowDupSuite.Name = "CheckBoxAllowDupSuite";
+            this.CheckBoxAllowDupSuite.Size = new System.Drawing.Size(157, 17);
+            this.CheckBoxAllowDupSuite.TabIndex = 0;
+            this.CheckBoxAllowDupSuite.Text = "Allow Duplicate Suite Name";
+            this.toolTip_12s.SetToolTip(this.CheckBoxAllowDupSuite, resources.GetString("CheckBoxAllowDupSuite.ToolTip"));
+            this.CheckBoxAllowDupSuite.UseVisualStyleBackColor = true;
+            this.CheckBoxAllowDupSuite.CheckedChanged += new System.EventHandler(this.checkBoxAllowDupSuite_CheckedChanged);
             // 
             // CheckBoxEnableL2
             // 
             this.CheckBoxEnableL2.AutoSize = true;
-            this.CheckBoxEnableL2.Location = new System.Drawing.Point(22, 59);
+            this.CheckBoxEnableL2.Location = new System.Drawing.Point(22, 64);
             this.CheckBoxEnableL2.Name = "CheckBoxEnableL2";
-            this.CheckBoxEnableL2.Size = new System.Drawing.Size(150, 16);
+            this.CheckBoxEnableL2.Size = new System.Drawing.Size(124, 17);
             this.CheckBoxEnableL2.TabIndex = 0;
-            this.CheckBoxEnableL2.Text = "Enable Level 2 Folder";
-            this.toolTip_12s.SetToolTip(this.CheckBoxEnableL2, "Check to enable level 2 folders when generating a test specification.\r\nYou need t" +
-                    "o map an Excel sheet column to level 2 folders.");
+            this.CheckBoxEnableL2.Text = "Enable Level 2 Suite";
+            this.toolTip_12s.SetToolTip(this.CheckBoxEnableL2, "Check to enable level 2 folders when generating a test specification.\r\nYou need to map an Excel sheet column to level 2 folders.");
             this.CheckBoxEnableL2.UseVisualStyleBackColor = true;
             this.CheckBoxEnableL2.CheckedChanged += new System.EventHandler(this.CheckBoxEnableL2_CheckedChanged);
             // 
             // RadioButtonSuite
             // 
             this.RadioButtonSuite.AutoSize = true;
-            this.RadioButtonSuite.Location = new System.Drawing.Point(9, 39);
+            this.RadioButtonSuite.Location = new System.Drawing.Point(9, 42);
             this.RadioButtonSuite.Name = "RadioButtonSuite";
-            this.RadioButtonSuite.Size = new System.Drawing.Size(83, 16);
+            this.RadioButtonSuite.Size = new System.Drawing.Size(73, 17);
             this.RadioButtonSuite.TabIndex = 0;
             this.RadioButtonSuite.TabStop = true;
             this.RadioButtonSuite.Text = "Test Suite";
-            this.toolTip_12s.SetToolTip(this.RadioButtonSuite, "Generate an XML test specification with type of \"Test Suite\".\r\n(Used by \"Improt T" +
-                    "est Suite\" in TestLink.)");
+            this.toolTip_12s.SetToolTip(this.RadioButtonSuite, "Generate an XML test specification with type of \"Test Suite\".\r\n(Used by \"Import Test Suite\" in TestLink.)");
             this.RadioButtonSuite.UseVisualStyleBackColor = true;
             this.RadioButtonSuite.CheckedChanged += new System.EventHandler(this.RadioButtonSuite_CheckedChanged);
             // 
             // RadioButtonCases
             // 
             this.RadioButtonCases.AutoSize = true;
-            this.RadioButtonCases.Location = new System.Drawing.Point(9, 19);
+            this.RadioButtonCases.Location = new System.Drawing.Point(9, 21);
             this.RadioButtonCases.Name = "RadioButtonCases";
-            this.RadioButtonCases.Size = new System.Drawing.Size(83, 16);
+            this.RadioButtonCases.Size = new System.Drawing.Size(78, 17);
             this.RadioButtonCases.TabIndex = 0;
             this.RadioButtonCases.TabStop = true;
             this.RadioButtonCases.Text = "Test Cases";
-            this.toolTip_12s.SetToolTip(this.RadioButtonCases, "Generate an XML test specification with the type of \"Test Cases\".\r\n(Used by \"Impr" +
-                    "ot Test Cases\" in TestLink.)");
+            this.toolTip_12s.SetToolTip(this.RadioButtonCases, "Generate an XML test specification with the type of \"Test Cases\".\r\n(Used by \"Import Test Cases\" in TestLink.)");
             this.RadioButtonCases.UseVisualStyleBackColor = true;
             this.RadioButtonCases.CheckedChanged += new System.EventHandler(this.RadioButtonCases_CheckedChanged);
             // 
@@ -156,13 +157,13 @@
             // 
             this.groupBoxSelectPath.Controls.Add(this.buttonSelectXml);
             this.groupBoxSelectPath.Controls.Add(this.buttonSelectExcel);
-            this.groupBoxSelectPath.Controls.Add(this.label2);
-            this.groupBoxSelectPath.Controls.Add(this.label1);
+            this.groupBoxSelectPath.Controls.Add(this.labelXmlPath);
+            this.groupBoxSelectPath.Controls.Add(this.labelExcelPath);
             this.groupBoxSelectPath.Controls.Add(this.textBoxXmlPath);
             this.groupBoxSelectPath.Controls.Add(this.textBoxExcelPath);
             this.groupBoxSelectPath.Location = new System.Drawing.Point(225, 5);
             this.groupBoxSelectPath.Name = "groupBoxSelectPath";
-            this.groupBoxSelectPath.Size = new System.Drawing.Size(475, 112);
+            this.groupBoxSelectPath.Size = new System.Drawing.Size(475, 121);
             this.groupBoxSelectPath.TabIndex = 0;
             this.groupBoxSelectPath.TabStop = false;
             this.groupBoxSelectPath.Text = "Select Files:";
@@ -170,9 +171,9 @@
             // buttonSelectXml
             // 
             this.buttonSelectXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectXml.Location = new System.Drawing.Point(436, 79);
+            this.buttonSelectXml.Location = new System.Drawing.Point(436, 86);
             this.buttonSelectXml.Name = "buttonSelectXml";
-            this.buttonSelectXml.Size = new System.Drawing.Size(31, 23);
+            this.buttonSelectXml.Size = new System.Drawing.Size(31, 25);
             this.buttonSelectXml.TabIndex = 2;
             this.buttonSelectXml.Text = "...";
             this.buttonSelectXml.UseVisualStyleBackColor = true;
@@ -181,305 +182,322 @@
             // buttonSelectExcel
             // 
             this.buttonSelectExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectExcel.Location = new System.Drawing.Point(436, 31);
+            this.buttonSelectExcel.Location = new System.Drawing.Point(436, 34);
             this.buttonSelectExcel.Name = "buttonSelectExcel";
-            this.buttonSelectExcel.Size = new System.Drawing.Size(31, 23);
+            this.buttonSelectExcel.Size = new System.Drawing.Size(31, 25);
             this.buttonSelectExcel.TabIndex = 1;
             this.buttonSelectExcel.Text = "...";
             this.buttonSelectExcel.UseVisualStyleBackColor = true;
             this.buttonSelectExcel.Click += new System.EventHandler(this.buttonSelectExcel_Click);
             // 
-            // label2
+            // labelXmlPath
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 66);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Destination XML File:";
+            this.labelXmlPath.AutoSize = true;
+            this.labelXmlPath.Location = new System.Drawing.Point(6, 72);
+            this.labelXmlPath.Name = "labelXmlPath";
+            this.labelXmlPath.Size = new System.Drawing.Size(107, 13);
+            this.labelXmlPath.TabIndex = 0;
+            this.labelXmlPath.Text = "Destination XML File:";
             // 
-            // label1
+            // labelExcelPath
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Source Excel File:";
+            this.labelExcelPath.AutoSize = true;
+            this.labelExcelPath.Location = new System.Drawing.Point(6, 20);
+            this.labelExcelPath.Name = "labelExcelPath";
+            this.labelExcelPath.Size = new System.Drawing.Size(92, 13);
+            this.labelExcelPath.TabIndex = 0;
+            this.labelExcelPath.Text = "Source Excel File:";
             // 
             // textBoxXmlPath
             // 
-            this.textBoxXmlPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxXmlPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxXmlPath.BackColor = System.Drawing.Color.LightGray;
-            this.textBoxXmlPath.Location = new System.Drawing.Point(6, 81);
+            this.textBoxXmlPath.Location = new System.Drawing.Point(6, 88);
             this.textBoxXmlPath.Name = "textBoxXmlPath";
             this.textBoxXmlPath.ReadOnly = true;
-            this.textBoxXmlPath.Size = new System.Drawing.Size(424, 21);
+            this.textBoxXmlPath.Size = new System.Drawing.Size(424, 20);
             this.textBoxXmlPath.TabIndex = 0;
             // 
             // textBoxExcelPath
             // 
-            this.textBoxExcelPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxExcelPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExcelPath.BackColor = System.Drawing.Color.LightGray;
-            this.textBoxExcelPath.Location = new System.Drawing.Point(6, 33);
+            this.textBoxExcelPath.Location = new System.Drawing.Point(6, 36);
             this.textBoxExcelPath.Name = "textBoxExcelPath";
             this.textBoxExcelPath.ReadOnly = true;
-            this.textBoxExcelPath.Size = new System.Drawing.Size(424, 21);
+            this.textBoxExcelPath.Size = new System.Drawing.Size(424, 20);
             this.textBoxExcelPath.TabIndex = 0;
             // 
             // groupboxOperations
             // 
-            this.groupboxOperations.Controls.Add(this.label11);
+            this.groupboxOperations.Controls.Add(this.labelL2Details);
+            this.groupboxOperations.Controls.Add(this.textBoxL2Details);
+            this.groupboxOperations.Controls.Add(this.labelL1Details);
+            this.groupboxOperations.Controls.Add(this.textBoxL1Details);
+            this.groupboxOperations.Controls.Add(this.labelImportance);
             this.groupboxOperations.Controls.Add(this.pictureBox1);
-            this.groupboxOperations.Controls.Add(this.label_L2);
-            this.groupboxOperations.Controls.Add(this.label_L1);
-            this.groupboxOperations.Controls.Add(this.label10);
-            this.groupboxOperations.Controls.Add(this.label9);
-            this.groupboxOperations.Controls.Add(this.label8);
-            this.groupboxOperations.Controls.Add(this.label7);
-            this.groupboxOperations.Controls.Add(this.label6);
-            this.groupboxOperations.Controls.Add(this.label5);
-            this.groupboxOperations.Controls.Add(this.label4);
+            this.groupboxOperations.Controls.Add(this.labelL2Name);
+            this.groupboxOperations.Controls.Add(this.labelL1Name);
+            this.groupboxOperations.Controls.Add(this.labelEndRow);
+            this.groupboxOperations.Controls.Add(this.labelStartRow);
+            this.groupboxOperations.Controls.Add(this.labelActions);
+            this.groupboxOperations.Controls.Add(this.labelExpectedResults);
+            this.groupboxOperations.Controls.Add(this.labelPreconditions);
+            this.groupboxOperations.Controls.Add(this.labelSummary);
+            this.groupboxOperations.Controls.Add(this.labelCaseName);
             this.groupboxOperations.Controls.Add(this.textBoxSummary);
             this.groupboxOperations.Controls.Add(this.textBoxExpectedResult);
             this.groupboxOperations.Controls.Add(this.textBoxEndRow);
             this.groupboxOperations.Controls.Add(this.textBoxImportance);
             this.groupboxOperations.Controls.Add(this.textBoxActions);
-            this.groupboxOperations.Controls.Add(this.textBoxName);
+            this.groupboxOperations.Controls.Add(this.textBoxCaseName);
             this.groupboxOperations.Controls.Add(this.textBoxStartRow);
             this.groupboxOperations.Controls.Add(this.textBoxPreconditions);
-            this.groupboxOperations.Controls.Add(this.textBoxLevel_2);
-            this.groupboxOperations.Controls.Add(this.textBoxlevel_1);
+            this.groupboxOperations.Controls.Add(this.textBoxL2Name);
+            this.groupboxOperations.Controls.Add(this.textBoxL1Name);
             this.groupboxOperations.Controls.Add(this.textBoxActiveSheet);
-            this.groupboxOperations.Controls.Add(this.label3);
-            this.groupboxOperations.Location = new System.Drawing.Point(6, 120);
+            this.groupboxOperations.Controls.Add(this.labelActiveSheet);
+            this.groupboxOperations.Location = new System.Drawing.Point(6, 130);
             this.groupboxOperations.Name = "groupboxOperations";
-            this.groupboxOperations.Size = new System.Drawing.Size(694, 108);
+            this.groupboxOperations.Size = new System.Drawing.Size(694, 227);
             this.groupboxOperations.TabIndex = 2;
             this.groupboxOperations.TabStop = false;
             this.groupboxOperations.Text = "Excel Mappings:";
             // 
-            // label11
+            // labelImportance
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(121, 61);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(65, 12);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Importance";
+            this.labelImportance.AutoSize = true;
+            this.labelImportance.Location = new System.Drawing.Point(121, 178);
+            this.labelImportance.Name = "labelImportance";
+            this.labelImportance.Size = new System.Drawing.Size(60, 13);
+            this.labelImportance.TabIndex = 13;
+            this.labelImportance.Text = "Importance";
+            this.labelImportance.Click += new System.EventHandler(this.labelImportance_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::EX_Converter.Properties.Resources.TestLink_logo;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(596, 18);
+            this.pictureBox1.Location = new System.Drawing.Point(596, 20);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(70, 35);
+            this.pictureBox1.Size = new System.Drawing.Size(70, 38);
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
-            // label_L2
+            // labelL2Name
             // 
-            this.label_L2.AutoSize = true;
-            this.label_L2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_L2.Location = new System.Drawing.Point(465, 17);
-            this.label_L2.Name = "label_L2";
-            this.label_L2.Size = new System.Drawing.Size(103, 12);
-            this.label_L2.TabIndex = 11;
-            this.label_L2.Text = "Level 2 Folder";
+            this.labelL2Name.AutoSize = true;
+            this.labelL2Name.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelL2Name.Location = new System.Drawing.Point(8, 124);
+            this.labelL2Name.Name = "labelL2Name";
+            this.labelL2Name.Size = new System.Drawing.Size(96, 12);
+            this.labelL2Name.TabIndex = 11;
+            this.labelL2Name.Text = "L2 Suite Name";
+            this.labelL2Name.Click += new System.EventHandler(this.label_L2_Click);
             // 
-            // label_L1
+            // labelL1Name
             // 
-            this.label_L1.AutoSize = true;
-            this.label_L1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_L1.Location = new System.Drawing.Point(347, 18);
-            this.label_L1.Name = "label_L1";
-            this.label_L1.Size = new System.Drawing.Size(103, 12);
-            this.label_L1.TabIndex = 10;
-            this.label_L1.Text = "Level 1 Folder";
+            this.labelL1Name.AutoSize = true;
+            this.labelL1Name.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelL1Name.Location = new System.Drawing.Point(8, 71);
+            this.labelL1Name.Name = "labelL1Name";
+            this.labelL1Name.Size = new System.Drawing.Size(96, 12);
+            this.labelL1Name.TabIndex = 10;
+            this.labelL1Name.Text = "L1 Suite Name";
+            this.labelL1Name.Click += new System.EventHandler(this.label_L1_Click);
             // 
-            // label10
+            // labelEndRow
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(234, 18);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(54, 12);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "End Row";
+            this.labelEndRow.AutoSize = true;
+            this.labelEndRow.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelEndRow.Location = new System.Drawing.Point(233, 20);
+            this.labelEndRow.Name = "labelEndRow";
+            this.labelEndRow.Size = new System.Drawing.Size(54, 12);
+            this.labelEndRow.TabIndex = 9;
+            this.labelEndRow.Text = "End Row";
             // 
-            // label9
+            // labelStartRow
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(120, 18);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(68, 12);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Start Row";
+            this.labelStartRow.AutoSize = true;
+            this.labelStartRow.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelStartRow.Location = new System.Drawing.Point(119, 20);
+            this.labelStartRow.Name = "labelStartRow";
+            this.labelStartRow.Size = new System.Drawing.Size(68, 12);
+            this.labelStartRow.TabIndex = 8;
+            this.labelStartRow.Text = "Start Row";
             // 
-            // label8
+            // labelActions
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(464, 61);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 12);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Actions";
+            this.labelActions.AutoSize = true;
+            this.labelActions.Location = new System.Drawing.Point(464, 178);
+            this.labelActions.Name = "labelActions";
+            this.labelActions.Size = new System.Drawing.Size(42, 13);
+            this.labelActions.TabIndex = 7;
+            this.labelActions.Text = "Actions";
+            this.labelActions.Click += new System.EventHandler(this.labelActions_Click);
             // 
-            // label7
+            // labelExpectedResults
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(576, 61);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(101, 12);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Expected Results";
+            this.labelExpectedResults.AutoSize = true;
+            this.labelExpectedResults.Location = new System.Drawing.Point(576, 178);
+            this.labelExpectedResults.Name = "labelExpectedResults";
+            this.labelExpectedResults.Size = new System.Drawing.Size(90, 13);
+            this.labelExpectedResults.TabIndex = 6;
+            this.labelExpectedResults.Text = "Expected Results";
+            this.labelExpectedResults.Click += new System.EventHandler(this.labelExpectedResults_Click);
             // 
-            // label6
+            // labelPreconditions
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(350, 61);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(83, 12);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Preconditions";
+            this.labelPreconditions.AutoSize = true;
+            this.labelPreconditions.Location = new System.Drawing.Point(350, 178);
+            this.labelPreconditions.Name = "labelPreconditions";
+            this.labelPreconditions.Size = new System.Drawing.Size(71, 13);
+            this.labelPreconditions.TabIndex = 5;
+            this.labelPreconditions.Text = "Preconditions";
+            this.labelPreconditions.Click += new System.EventHandler(this.labelPreconditions_Click);
             // 
-            // label5
+            // labelSummary
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(235, 61);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 12);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Summary";
+            this.labelSummary.AutoSize = true;
+            this.labelSummary.Location = new System.Drawing.Point(235, 178);
+            this.labelSummary.Name = "labelSummary";
+            this.labelSummary.Size = new System.Drawing.Size(50, 13);
+            this.labelSummary.TabIndex = 4;
+            this.labelSummary.Text = "Summary";
+            this.labelSummary.Click += new System.EventHandler(this.labelSummary_Click);
             // 
-            // label4
+            // labelCaseName
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(8, 61);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 12);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Name";
+            this.labelCaseName.AutoSize = true;
+            this.labelCaseName.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelCaseName.Location = new System.Drawing.Point(8, 178);
+            this.labelCaseName.Name = "labelCaseName";
+            this.labelCaseName.Size = new System.Drawing.Size(68, 12);
+            this.labelCaseName.TabIndex = 3;
+            this.labelCaseName.Text = "Case Name";
+            this.labelCaseName.Click += new System.EventHandler(this.labelCaseName_Click);
             // 
             // textBoxSummary
             // 
             this.textBoxSummary.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxSummary.Location = new System.Drawing.Point(237, 76);
+            this.textBoxSummary.Location = new System.Drawing.Point(237, 194);
             this.textBoxSummary.Name = "textBoxSummary";
-            this.textBoxSummary.Size = new System.Drawing.Size(100, 21);
+            this.textBoxSummary.Size = new System.Drawing.Size(100, 20);
             this.textBoxSummary.TabIndex = 10;
             this.toolTip_5s.SetToolTip(this.textBoxSummary, "Numbers or single alphabetical character.");
+            this.textBoxSummary.TextChanged += new System.EventHandler(this.textBoxSummary_TextChanged);
             // 
             // textBoxExpectedResult
             // 
             this.textBoxExpectedResult.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxExpectedResult.Location = new System.Drawing.Point(577, 76);
+            this.textBoxExpectedResult.Location = new System.Drawing.Point(577, 194);
             this.textBoxExpectedResult.Name = "textBoxExpectedResult";
-            this.textBoxExpectedResult.Size = new System.Drawing.Size(100, 21);
+            this.textBoxExpectedResult.Size = new System.Drawing.Size(100, 20);
             this.textBoxExpectedResult.TabIndex = 13;
             this.toolTip_5s.SetToolTip(this.textBoxExpectedResult, "Numbers or single alphabetical character.");
             // 
             // textBoxEndRow
             // 
             this.textBoxEndRow.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxEndRow.Location = new System.Drawing.Point(235, 33);
+            this.textBoxEndRow.Location = new System.Drawing.Point(235, 36);
             this.textBoxEndRow.Name = "textBoxEndRow";
-            this.textBoxEndRow.Size = new System.Drawing.Size(100, 21);
+            this.textBoxEndRow.Size = new System.Drawing.Size(100, 20);
             this.textBoxEndRow.TabIndex = 5;
             this.toolTip_5s.SetToolTip(this.textBoxEndRow, "Numbers only.");
             // 
             // textBoxImportance
             // 
             this.textBoxImportance.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxImportance.Location = new System.Drawing.Point(121, 76);
+            this.textBoxImportance.Location = new System.Drawing.Point(121, 194);
             this.textBoxImportance.Name = "textBoxImportance";
-            this.textBoxImportance.Size = new System.Drawing.Size(100, 21);
+            this.textBoxImportance.Size = new System.Drawing.Size(100, 20);
             this.textBoxImportance.TabIndex = 9;
             this.toolTip_5s.SetToolTip(this.textBoxImportance, "Numbers or single alphabetical character.");
+            this.textBoxImportance.TextChanged += new System.EventHandler(this.textBoxImportance_TextChanged);
             // 
             // textBoxActions
             // 
             this.textBoxActions.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxActions.Location = new System.Drawing.Point(464, 76);
+            this.textBoxActions.Location = new System.Drawing.Point(464, 194);
             this.textBoxActions.Name = "textBoxActions";
-            this.textBoxActions.Size = new System.Drawing.Size(100, 21);
+            this.textBoxActions.Size = new System.Drawing.Size(100, 20);
             this.textBoxActions.TabIndex = 12;
             this.toolTip_5s.SetToolTip(this.textBoxActions, "Numbers or single alphabetical character.");
+            this.textBoxActions.TextChanged += new System.EventHandler(this.textBoxActions_TextChanged);
             // 
-            // textBoxName
+            // textBoxCaseName
             // 
-            this.textBoxName.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxName.Location = new System.Drawing.Point(10, 76);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(100, 21);
-            this.textBoxName.TabIndex = 8;
-            this.toolTip_5s.SetToolTip(this.textBoxName, "Numbers or single alphabetical character.");
+            this.textBoxCaseName.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxCaseName.Location = new System.Drawing.Point(10, 194);
+            this.textBoxCaseName.Name = "textBoxCaseName";
+            this.textBoxCaseName.Size = new System.Drawing.Size(100, 20);
+            this.textBoxCaseName.TabIndex = 8;
+            this.toolTip_5s.SetToolTip(this.textBoxCaseName, "Numbers or single alphabetical character.");
+            this.textBoxCaseName.TextChanged += new System.EventHandler(this.textBoxCaseName_TextChanged);
             // 
             // textBoxStartRow
             // 
             this.textBoxStartRow.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxStartRow.Location = new System.Drawing.Point(121, 33);
+            this.textBoxStartRow.Location = new System.Drawing.Point(121, 36);
             this.textBoxStartRow.Name = "textBoxStartRow";
-            this.textBoxStartRow.Size = new System.Drawing.Size(100, 21);
+            this.textBoxStartRow.Size = new System.Drawing.Size(100, 20);
             this.textBoxStartRow.TabIndex = 4;
             this.toolTip_5s.SetToolTip(this.textBoxStartRow, "Numbers only.");
             // 
             // textBoxPreconditions
             // 
             this.textBoxPreconditions.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxPreconditions.Location = new System.Drawing.Point(350, 76);
+            this.textBoxPreconditions.Location = new System.Drawing.Point(350, 194);
             this.textBoxPreconditions.Name = "textBoxPreconditions";
-            this.textBoxPreconditions.Size = new System.Drawing.Size(100, 21);
+            this.textBoxPreconditions.Size = new System.Drawing.Size(100, 20);
             this.textBoxPreconditions.TabIndex = 11;
             this.toolTip_5s.SetToolTip(this.textBoxPreconditions, "Numbers or single alphabetical character.");
+            this.textBoxPreconditions.TextChanged += new System.EventHandler(this.textBoxPreconditions_TextChanged);
             // 
-            // textBoxLevel_2
+            // textBoxL2Name
             // 
-            this.textBoxLevel_2.Location = new System.Drawing.Point(464, 33);
-            this.textBoxLevel_2.Name = "textBoxLevel_2";
-            this.textBoxLevel_2.Size = new System.Drawing.Size(100, 21);
-            this.textBoxLevel_2.TabIndex = 7;
-            this.toolTip_5s.SetToolTip(this.textBoxLevel_2, "Numbers or single alphabetical character.");
+            this.textBoxL2Name.Location = new System.Drawing.Point(10, 139);
+            this.textBoxL2Name.Name = "textBoxL2Name";
+            this.textBoxL2Name.Size = new System.Drawing.Size(100, 20);
+            this.textBoxL2Name.TabIndex = 7;
+            this.toolTip_5s.SetToolTip(this.textBoxL2Name, "Numbers or single alphabetical character.");
             // 
-            // textBoxlevel_1
+            // textBoxL1Name
             // 
-            this.textBoxlevel_1.Location = new System.Drawing.Point(349, 33);
-            this.textBoxlevel_1.Name = "textBoxlevel_1";
-            this.textBoxlevel_1.Size = new System.Drawing.Size(100, 21);
-            this.textBoxlevel_1.TabIndex = 6;
-            this.toolTip_5s.SetToolTip(this.textBoxlevel_1, "Numbers or single alphabetical character.");
+            this.textBoxL1Name.Location = new System.Drawing.Point(10, 86);
+            this.textBoxL1Name.Name = "textBoxL1Name";
+            this.textBoxL1Name.Size = new System.Drawing.Size(100, 20);
+            this.textBoxL1Name.TabIndex = 6;
+            this.toolTip_5s.SetToolTip(this.textBoxL1Name, "Numbers or single alphabetical character.");
             // 
             // textBoxActiveSheet
             // 
             this.textBoxActiveSheet.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxActiveSheet.Location = new System.Drawing.Point(10, 33);
+            this.textBoxActiveSheet.Location = new System.Drawing.Point(10, 36);
             this.textBoxActiveSheet.Name = "textBoxActiveSheet";
-            this.textBoxActiveSheet.Size = new System.Drawing.Size(100, 21);
+            this.textBoxActiveSheet.Size = new System.Drawing.Size(100, 20);
             this.textBoxActiveSheet.TabIndex = 3;
             this.toolTip_5s.SetToolTip(this.textBoxActiveSheet, "Numbers only.");
             // 
-            // label3
+            // labelActiveSheet
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(8, 18);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 12);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Active Sheet";
+            this.labelActiveSheet.AutoSize = true;
+            this.labelActiveSheet.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelActiveSheet.Location = new System.Drawing.Point(7, 20);
+            this.labelActiveSheet.Name = "labelActiveSheet";
+            this.labelActiveSheet.Size = new System.Drawing.Size(89, 12);
+            this.labelActiveSheet.TabIndex = 0;
+            this.labelActiveSheet.Text = "Active Sheet";
             // 
             // buttonConvert
             // 
             this.buttonConvert.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonConvert.Location = new System.Drawing.Point(322, 234);
+            this.buttonConvert.Location = new System.Drawing.Point(322, 369);
             this.buttonConvert.Name = "buttonConvert";
-            this.buttonConvert.Size = new System.Drawing.Size(85, 28);
+            this.buttonConvert.Size = new System.Drawing.Size(85, 30);
             this.buttonConvert.TabIndex = 13;
             this.buttonConvert.Text = "Convert!";
             this.buttonConvert.UseVisualStyleBackColor = true;
@@ -487,14 +505,14 @@
             // 
             // logWindow
             // 
-            this.logWindow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.logWindow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.logWindow.BackColor = System.Drawing.Color.White;
-            this.logWindow.Location = new System.Drawing.Point(6, 287);
+            this.logWindow.Location = new System.Drawing.Point(6, 422);
             this.logWindow.Name = "logWindow";
             this.logWindow.ReadOnly = true;
             this.logWindow.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.logWindow.Size = new System.Drawing.Size(694, 267);
+            this.logWindow.Size = new System.Drawing.Size(694, 178);
             this.logWindow.TabIndex = 3;
             this.logWindow.Text = "";
             // 
@@ -504,16 +522,16 @@
             // 
             // ProgressBar
             // 
-            this.ProgressBar.Location = new System.Drawing.Point(6, 266);
+            this.ProgressBar.Location = new System.Drawing.Point(6, 403);
             this.ProgressBar.Name = "ProgressBar";
-            this.ProgressBar.Size = new System.Drawing.Size(695, 15);
+            this.ProgressBar.Size = new System.Drawing.Size(695, 16);
             this.ProgressBar.TabIndex = 4;
             // 
             // ButtonClear
             // 
-            this.ButtonClear.Location = new System.Drawing.Point(614, 237);
+            this.ButtonClear.Location = new System.Drawing.Point(614, 372);
             this.ButtonClear.Name = "ButtonClear";
-            this.ButtonClear.Size = new System.Drawing.Size(85, 23);
+            this.ButtonClear.Size = new System.Drawing.Size(85, 25);
             this.ButtonClear.TabIndex = 15;
             this.ButtonClear.Text = "Clear Logs";
             this.ButtonClear.UseVisualStyleBackColor = true;
@@ -521,9 +539,9 @@
             // 
             // ButtonReset
             // 
-            this.ButtonReset.Location = new System.Drawing.Point(509, 237);
+            this.ButtonReset.Location = new System.Drawing.Point(509, 372);
             this.ButtonReset.Name = "ButtonReset";
-            this.ButtonReset.Size = new System.Drawing.Size(85, 23);
+            this.ButtonReset.Size = new System.Drawing.Size(85, 25);
             this.ButtonReset.TabIndex = 14;
             this.ButtonReset.Text = "Reset Values";
             this.ButtonReset.UseVisualStyleBackColor = true;
@@ -559,7 +577,7 @@
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel2.Location = new System.Drawing.Point(3, 19);
+            this.linkLabel2.Location = new System.Drawing.Point(3, 21);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(86, 13);
             this.linkLabel2.TabIndex = 18;
@@ -571,7 +589,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(105, 9);
+            this.label12.Location = new System.Drawing.Point(105, 10);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(101, 13);
             this.label12.TabIndex = 19;
@@ -584,16 +602,54 @@
             this.panel1.Controls.Add(this.linkLabel2);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.linkLabel1);
-            this.panel1.Location = new System.Drawing.Point(6, 229);
+            this.panel1.Location = new System.Drawing.Point(6, 363);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(212, 35);
+            this.panel1.Size = new System.Drawing.Size(212, 38);
             this.panel1.TabIndex = 20;
+            // 
+            // labelL1Details
+            // 
+            this.labelL1Details.AutoSize = true;
+            this.labelL1Details.Location = new System.Drawing.Point(121, 70);
+            this.labelL1Details.Name = "labelL1Details";
+            this.labelL1Details.Size = new System.Drawing.Size(81, 13);
+            this.labelL1Details.TabIndex = 18;
+            this.labelL1Details.Text = "L1 Suite Details";
+            this.labelL1Details.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // textBoxL1Details
+            // 
+            this.textBoxL1Details.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxL1Details.Location = new System.Drawing.Point(121, 86);
+            this.textBoxL1Details.Name = "textBoxL1Details";
+            this.textBoxL1Details.Size = new System.Drawing.Size(100, 20);
+            this.textBoxL1Details.TabIndex = 17;
+            this.toolTip_5s.SetToolTip(this.textBoxL1Details, "Numbers or single alphabetical character.");
+            this.textBoxL1Details.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // labelL2Details
+            // 
+            this.labelL2Details.AutoSize = true;
+            this.labelL2Details.Location = new System.Drawing.Point(121, 123);
+            this.labelL2Details.Name = "labelL2Details";
+            this.labelL2Details.Size = new System.Drawing.Size(81, 13);
+            this.labelL2Details.TabIndex = 20;
+            this.labelL2Details.Text = "L2 Suite Details";
+            // 
+            // textBoxL2Details
+            // 
+            this.textBoxL2Details.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxL2Details.Location = new System.Drawing.Point(121, 139);
+            this.textBoxL2Details.Name = "textBoxL2Details";
+            this.textBoxL2Details.Size = new System.Drawing.Size(100, 20);
+            this.textBoxL2Details.TabIndex = 19;
+            this.toolTip_5s.SetToolTip(this.textBoxL2Details, "Numbers or single alphabetical character.");
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 566);
+            this.ClientSize = new System.Drawing.Size(704, 609);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ButtonReset);
             this.Controls.Add(this.ButtonClear);
@@ -603,8 +659,8 @@
             this.Controls.Add(this.logWindow);
             this.Controls.Add(this.groupboxOperations);
             this.Controls.Add(this.groupBoxSelectPath);
-            this.MaximumSize = new System.Drawing.Size(720, 600);
-            this.MinimumSize = new System.Drawing.Size(720, 600);
+            this.MaximumSize = new System.Drawing.Size(720, 647);
+            this.MinimumSize = new System.Drawing.Size(720, 647);
             this.Name = "MainWindow";
             this.Text = "EX-Converter v1.2.1";
             this.TemplateTypeGroupBox.ResumeLayout(false);
@@ -625,8 +681,8 @@
         private System.Windows.Forms.GroupBox groupBoxSelectPath;
         private System.Windows.Forms.Button buttonSelectXml;
         private System.Windows.Forms.Button buttonSelectExcel;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelXmlPath;
+        private System.Windows.Forms.Label labelExcelPath;
         private System.Windows.Forms.TextBox textBoxXmlPath;
         private System.Windows.Forms.TextBox textBoxExcelPath;
         private System.Windows.Forms.GroupBox groupboxOperations;
@@ -634,36 +690,36 @@
         private System.Windows.Forms.RichTextBox logWindow;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelActiveSheet;
         private System.Windows.Forms.TextBox textBoxActiveSheet;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelCaseName;
+        private System.Windows.Forms.TextBox textBoxCaseName;
+        private System.Windows.Forms.Label labelExpectedResults;
+        private System.Windows.Forms.Label labelPreconditions;
+        private System.Windows.Forms.Label labelSummary;
         private System.Windows.Forms.TextBox textBoxSummary;
         private System.Windows.Forms.TextBox textBoxExpectedResult;
         private System.Windows.Forms.TextBox textBoxPreconditions;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelActions;
         private System.Windows.Forms.TextBox textBoxActions;
         private System.Windows.Forms.ProgressBar ProgressBar;
         private System.Windows.Forms.GroupBox TemplateTypeGroupBox;
         private System.Windows.Forms.RadioButton RadioButtonSuite;
         private System.Windows.Forms.RadioButton RadioButtonCases;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label labelEndRow;
+        private System.Windows.Forms.Label labelStartRow;
         private System.Windows.Forms.TextBox textBoxEndRow;
         private System.Windows.Forms.TextBox textBoxStartRow;
-        private System.Windows.Forms.Label label_L1;
-        private System.Windows.Forms.TextBox textBoxLevel_2;
-        private System.Windows.Forms.TextBox textBoxlevel_1;
-        private System.Windows.Forms.Label label_L2;
+        private System.Windows.Forms.Label labelL1Name;
+        private System.Windows.Forms.Label labelL2Name;
+        private System.Windows.Forms.TextBox textBoxL1Name;
+        private System.Windows.Forms.TextBox textBoxL2Name;
         private System.Windows.Forms.CheckBox CheckBoxEnableL2;
-        private System.Windows.Forms.CheckBox checkBoxAllowDupSuite;
+        private System.Windows.Forms.CheckBox CheckBoxAllowDupSuite;
         private System.Windows.Forms.Button ButtonClear;
         private System.Windows.Forms.Button ButtonReset;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label labelImportance;
         private System.Windows.Forms.TextBox textBoxImportance;
         private System.Windows.Forms.ToolTip toolTip_12s;
         private System.Windows.Forms.ToolTip toolTip_5s;
@@ -671,6 +727,10 @@
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelL1Details;
+        private System.Windows.Forms.TextBox textBoxL1Details;
+        private System.Windows.Forms.Label labelL2Details;
+        private System.Windows.Forms.TextBox textBoxL2Details;
     }
 }
 

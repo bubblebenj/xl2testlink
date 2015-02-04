@@ -120,7 +120,7 @@
   <metadata name="toolTip_12s.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="checkBoxAllowDupSuite.ToolTip" xml:space="preserve">
+  <data name="CheckBoxAllowDupSuite.ToolTip" xml:space="preserve">
     <value>Check to allow duplicate test suite names existing in the same level. No warning will be given.
 Uncheck will consider duplicate test suite names as one suite, and their contents will be combined. Warning will be given.</value>
   </data>
@@ -132,5 +132,8 @@ Uncheck will consider duplicate test suite names as one suite, and their content
   </metadata>
   <metadata name="saveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>275, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>81</value>
   </metadata>
 </root>

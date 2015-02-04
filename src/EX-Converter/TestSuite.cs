@@ -16,10 +16,10 @@ namespace EX_Converter
         public List<ITlElement> ChildrenElements { get; private set; }
         #endregion
 
-        public TestSuite(string suiteName)
+        public TestSuite(string suiteName, string details)
         {
             this.AttrName = suiteName;
-            this.Details = String.Empty;
+            this.Details = details;
             this.ChildrenElements = new List<ITlElement>();
         }
 

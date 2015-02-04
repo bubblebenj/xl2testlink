@@ -37,20 +37,22 @@ namespace EX_Converter
         private readonly bool L2_Enabled;
         private readonly bool allowDuplicateSuite;
 
-        private int ActiveSheetIndex { get; set; }
-        private int StartRowIndex { get; set; }
-        private int EndRowIndex { get; set; }
+        private int activeSheetIndex { get; set; }
+        private int startRowIndex { get; set; }
+        private int endRowIndex { get; set; }
 
-        private int L1_FolderIndex { get; set; }
-        private int L2_FolderIndex { get; set; }
+        private int caseNameColumnIndex { get; set; }
+        private int summaryColumnIndex { get; set; }
+        private int preconditionsColumnIndex { get; set; }
+        private int importanceColumnIndex { get; set; }
+        private int actionsColumnIndex { get; set; }
+        private int expectedResultsColumnIndex { get; set; }
 
-        private int NameColumnIndex { get; set; }
-        private int SummaryColumnIndex { get; set; }
-        private int PreconditionsColumnIndex { get; set; }
-        private int ImportanceColumnIndex { get; set; }
+        private int L1NameColumnIndex { get; set; }
+        private int L1DetailsColumnIndex { get; set; }
 
-        private int ActionsColumnIndex { get; set; }
-        private int ExpectedResultsColumnIndex { get; set; }
+        private int L2NameColumnIndex { get; set; }
+        private int L2DetailsColumnIndex { get; set; }
 
         private const string SUITE_DEFAULT_NAME = "#TEST_SUITE_DEFAULT_NAME#";
         private TestCase currentCase = null;
@@ -65,7 +67,7 @@ namespace EX_Converter
         #region Constructor.
         public ExcelReader(string excelPath, bool readCase, bool l2Enabled, bool allowDupSuite,
                             int activeSheet, int startRow, int endRow,
-                            int folderL1, int folderL2,
+                            int L1Name, int L1Details, int L2Name, int L2Details,
                             int caseName, int summary, int preconditions, int importance,
                             int actions, int expected)
         {
@@ -74,26 +76,31 @@ namespace EX_Converter
             this.L2_Enabled = l2Enabled;
             this.allowDuplicateSuite = allowDupSuite;
 
-            this.ActiveSheetIndex = activeSheet;
-            this.StartRowIndex = startRow;
-            this.EndRowIndex = endRow;
-            this.L1_FolderIndex = folderL1;
-            this.L2_FolderIndex = folderL2;
+            this.activeSheetIndex = activeSheet;
+            this.startRowIndex = startRow;
+            this.endRowIndex = endRow;
 
-            this.NameColumnIndex = caseName;
-            this.SummaryColumnIndex = summary;
-            this.PreconditionsColumnIndex = preconditions;
-            this.ImportanceColumnIndex = importance;
-            this.ActionsColumnIndex = actions;
-            this.ExpectedResultsColumnIndex = expected;
+            this.L1NameColumnIndex = L1Name;
+            this.L1DetailsColumnIndex = L1Details;
+
+            this.L2NameColumnIndex = L2Name;
+            this.L2DetailsColumnIndex = L2Details;
+
+            this.caseNameColumnIndex = caseName;
+            this.summaryColumnIndex = summary;
+            this.preconditionsColumnIndex = preconditions;
+            this.importanceColumnIndex = importance;
+            this.actionsColumnIndex = actions;
+            this.expectedResultsColumnIndex = expected;
         }
         #endregion
 
         #region Utility methods for adding new case/step and check-ups.
-        private void PushBackNewCase(TestSuite destSuite, string name, string summary, string preconditions, int importance,
+
+        private void PushBackNewCase(TestSuite destSuite, string caseName, string summary, string preconditions, int importance,
                                         string actions, string expected)
         {
-            TestCase newCase = new TestCase(name, summary, preconditions, importance);
+            TestCase newCase = new TestCase(caseName, summary, preconditions, importance);
             this.currentCase = newCase;
             TestStep newStep = new TestStep(1, actions, expected);
             newCase.AddTestStep(newStep);
@@ -101,20 +108,23 @@ namespace EX_Converter
 
             this.totalCaseCount++;
         }
+
         private void PushBackNewStep(string actions, string expected)
         {
             TestStep newStep = new TestStep(this.currentCase.Steps.Count + 1, actions, expected);
             this.currentCase.AddTestStep(newStep);
         }
+
         private string GetShortName(ITlElement elem)
         {
             return elem.AttrName.Substring
                 (0,elem.AttrName.Length >= 50 ? 50 : elem.AttrName.Length);
         }
+
         private KeyValuePair<int, bool> ValidateImportance(string importanceString)
         {
             //Set test case importance to "Medium" if column not defined by user.
-            if (this.ImportanceColumnIndex == 0)
+            if (this.importanceColumnIndex == 0)
                 return new KeyValuePair<int, bool>(2, true);
 
             if (importanceString == null)
@@ -182,18 +192,18 @@ namespace EX_Converter
         #region Parsing logics.
         //Parse logic for cases only.
         private void Parse_Case(int rowIndex, TestSuite baseSuite, 
-                                string name, string summary, string preconditions, string importance,
+                                string caseName, string summary, string preconditions, string importance,
                                 string actions, string expected)
         {
             if ((actions == null) && (expected == null)
-                && (name == null) && (summary == null) && (preconditions == null) && (importance == null))
+                && (caseName == null) && (summary == null) && (preconditions == null) && (importance == null))
             {
                 //Indicate empty row.
                 ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex, LOG_EmptyRow));
                 return;
             }
 
-            if (name == null)
+            if (caseName == null)
             {
                 if ((actions == null) && (expected == null))
                 {
@@ -229,27 +239,28 @@ namespace EX_Converter
                                     WARNING_InvalidImportanceValue));
                 }
                 //add new case to base suite
-                this.PushBackNewCase(baseSuite, name, summary, preconditions, pairImportance.Key, 
+                this.PushBackNewCase(baseSuite, caseName, summary, preconditions, pairImportance.Key, 
                                         actions, expected);
                 ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex,
                                 LOG_AddNewCase + this.GetShortName(this.currentCase) + LOG_Postfix));
             }
         }
+
         //Parse logic for level 1 suite only.
-        private void Parse_L1(int rowIndex, TestSuite baseSuite, string L1Val, 
-                                string name, string summary, string preconditions, string importance,
+        private void Parse_L1(int rowIndex, TestSuite baseSuite, string L1Name, string L1Details,
+                                string caseName, string summary, string preconditions, string importance,
                                 string actions, string expected)
         {
             if ((actions == null) && (expected == null)
-                && (name == null) && (summary == null) && (preconditions == null) && (importance == null)
-                && (L1Val == null))
+                && (caseName == null) && (summary == null) && (preconditions == null) && (importance == null)
+                && (L1Name == null) && (L1Details == null))
             {
                 //Indicate empty row.
                 ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex, LOG_EmptyRow));
                 return;
             }
 
-            if (L1Val == null)
+            if (L1Name == null)
             {
                 if (this.L1_CurrentSuite == null)
                 {
@@ -257,7 +268,7 @@ namespace EX_Converter
                     ReaderEvent(this, new ReaderEventArgs(LogType.Error, rowIndex,
                            ERROR_L1Missing));
                 }
-                else if ((name == null) && (actions == null) && (expected == null))
+                else if ((caseName == null) && (actions == null) && (expected == null))
                 {
                     if ((summary != null) || (preconditions != null) || (importance != null))
                     {
@@ -272,7 +283,7 @@ namespace EX_Converter
                         return;
                     }
                 }
-                else if (name == null)
+                else if (caseName == null)
                 {
                     //add step to L1 last case
                     if (this.currentCase == null)
@@ -298,7 +309,7 @@ namespace EX_Converter
                                         WARNING_InvalidImportanceValue));
                     }
                     //add new case to L1
-                    this.PushBackNewCase(this.L1_CurrentSuite, name, summary, preconditions, pairImportance.Key, 
+                    this.PushBackNewCase(this.L1_CurrentSuite, caseName, summary, preconditions, pairImportance.Key, 
                                             actions, expected);
                     ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex,
                                 LOG_AddNewCaseL1 + this.GetShortName(this.currentCase) + LOG_Postfix));
@@ -314,12 +325,12 @@ namespace EX_Converter
                 }
                 else
                 {
-                    existingL1Suite = baseSuite.FindSuite(L1Val);
+                    existingL1Suite = baseSuite.FindSuite(L1Name);
                 }
 
                 if (existingL1Suite == null)
                 {
-                    TestSuite newL1Suite = new TestSuite(L1Val);
+                    TestSuite newL1Suite = new TestSuite(L1Name, L1Details);
                     baseSuite.AddChild(newL1Suite as ITlElement);
                     this.L1_CurrentSuite = newL1Suite;
 
@@ -335,9 +346,7 @@ namespace EX_Converter
                 }
                 this.currentCase = null;
 
-
-
-                if ((name == null) && (actions == null) && (expected == null))
+                if ((caseName == null) && (actions == null) && (expected == null))
                 {
                     if ((summary != null) || (preconditions != null) || (importance != null))
                     {
@@ -352,7 +361,7 @@ namespace EX_Converter
                         return;
                     }
                 }
-                else if (name == null)
+                else if (caseName == null)
                 {
                     //no new case name...
                     ReaderEvent(this, new ReaderEventArgs(LogType.Error, rowIndex,
@@ -368,21 +377,22 @@ namespace EX_Converter
                                         WARNING_InvalidImportanceValue));
                     }
                     //add new case to L1
-                    this.PushBackNewCase(this.L1_CurrentSuite, name, summary, preconditions, pairImportance.Key, 
+                    this.PushBackNewCase(this.L1_CurrentSuite, caseName, summary, preconditions, pairImportance.Key, 
                                             actions, expected);
                     ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex,
                                 LOG_AddNewCaseL1 + this.GetShortName(this.currentCase) + LOG_Postfix));
                 }
             }
         }
-        //Parse logic for Level 2 suite enabled.
-        private void Parse_L1L2(int rowIndex, TestSuite baseSuite, string L1Val, string L2Val, 
-                                string name, string summary, string preconditions, string importance, 
+
+        // Parse logic for Level 2 suite enabled.
+        private void Parse_L1L2(int rowIndex, TestSuite baseSuite, string L1Name, string L1Details, string L2Name, string L2Details,
+                                string caseName, string summary, string preconditions, string importance, 
                                 string actions, string expected)
         {
             if ((actions == null) && (expected == null)
-                && (name == null) && (summary == null) && (preconditions == null) && (importance == null)
-                && (L1Val == null) && (L2Val == null))
+                && (caseName == null) && (summary == null) && (preconditions == null) && (importance == null)
+                && (L1Name == null) && (L1Details == null) && (L2Name == null) && (L2Details == null))
             {
                 //Indicate empty row.
                 ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex, LOG_EmptyRow));
@@ -390,7 +400,7 @@ namespace EX_Converter
             }
 
             #region L1Val == null
-            if (L1Val == null)
+            if (L1Name == null)
             {
                 if (this.L1_CurrentSuite == null)
                 {
@@ -398,11 +408,11 @@ namespace EX_Converter
                     ReaderEvent(this, new ReaderEventArgs(LogType.Error, rowIndex,
                            ERROR_L1Missing));
                 }
-                else if (L2Val == null)
+                else if (L2Name == null)
                 {
                     if (this.L2_CurrentSuite == null)
                     {
-                        if ((name == null) && (actions == null) && (expected == null))
+                        if ((caseName == null) && (actions == null) && (expected == null))
                         {
                             if ((summary != null) || (preconditions != null) || (importance != null))
                             {
@@ -417,7 +427,7 @@ namespace EX_Converter
                                 return;
                             }
                         }
-                        else if (name == null)
+                        else if (caseName == null)
                         {
                             //<no new case name... //*** should add new step to current case>
                             //check current case sinc logic not clear...
@@ -444,13 +454,13 @@ namespace EX_Converter
                                                 WARNING_InvalidImportanceValue));
                             }
                             //add new case to L1
-                            this.PushBackNewCase(this.L1_CurrentSuite, name, summary, preconditions, pairImportance.Key, 
+                            this.PushBackNewCase(this.L1_CurrentSuite, caseName, summary, preconditions, pairImportance.Key, 
                                                     actions, expected);
                             ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex,
                                 LOG_AddNewCaseL1 + this.GetShortName(this.currentCase) + LOG_Postfix));
                         }
                     }
-                    else if ((name == null) && (actions == null) && (expected == null))
+                    else if ((caseName == null) && (actions == null) && (expected == null))
                     {
                         if ((summary != null) || (preconditions != null) || (importance != null))
                         {
@@ -465,7 +475,7 @@ namespace EX_Converter
                             return;
                         }
                     }
-                    else if (name == null)
+                    else if (caseName == null)
                     {
                         //add step to L2 last case
                         if (this.currentCase == null)
@@ -491,7 +501,7 @@ namespace EX_Converter
                                             WARNING_InvalidImportanceValue));
                         }
                         //add new case to L2
-                        this.PushBackNewCase(this.L2_CurrentSuite, name, summary, preconditions, pairImportance.Key, 
+                        this.PushBackNewCase(this.L2_CurrentSuite, caseName, summary, preconditions, pairImportance.Key, 
                                                 actions, expected);
                         ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex,
                                 LOG_AddNewCaseL2 + this.GetShortName(this.currentCase) + LOG_Postfix));
@@ -507,12 +517,12 @@ namespace EX_Converter
                     }
                     else
                     {
-                        existingL2Suite = this.L1_CurrentSuite.FindSuite(L2Val);
+                        existingL2Suite = this.L1_CurrentSuite.FindSuite(L2Name);
                     }
 
                     if (existingL2Suite == null)
                     {
-                        TestSuite newL2Suite = new TestSuite(L2Val);
+                        TestSuite newL2Suite = new TestSuite(L2Name, L2Details);
                         this.L1_CurrentSuite.AddChild(newL2Suite as ITlElement);
                         this.L2_CurrentSuite = newL2Suite;
 
@@ -527,7 +537,7 @@ namespace EX_Converter
                     }
                     this.currentCase = null;
 
-                    if ((name == null) && (actions == null) && (expected == null))
+                    if ((caseName == null) && (actions == null) && (expected == null))
                     {
                         if ((summary != null) || (preconditions != null) || (importance != null))
                         {
@@ -542,7 +552,7 @@ namespace EX_Converter
                             return;
                         }
                     }
-                    else if (name == null)
+                    else if (caseName == null)
                     {
                         //no new case name...
                         ReaderEvent(this, new ReaderEventArgs(LogType.Error, rowIndex,
@@ -558,7 +568,7 @@ namespace EX_Converter
                                             WARNING_InvalidImportanceValue));
                         }
                         //add new case to L2
-                        this.PushBackNewCase(this.L2_CurrentSuite, name, summary, preconditions, pairImportance.Key, 
+                        this.PushBackNewCase(this.L2_CurrentSuite, caseName, summary, preconditions, pairImportance.Key, 
                                                 actions, expected);
                         ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex,
                                 LOG_AddNewCaseL2 + this.GetShortName(this.currentCase) + LOG_Postfix));
@@ -577,12 +587,12 @@ namespace EX_Converter
                 }
                 else
                 {
-                    existingL1Suite = baseSuite.FindSuite(L1Val);
+                    existingL1Suite = baseSuite.FindSuite(L1Name);
                 }
 
                 if (existingL1Suite == null)
                 {
-                    TestSuite newL1Suite = new TestSuite(L1Val);
+                    TestSuite newL1Suite = new TestSuite(L1Name, L1Details);
                     baseSuite.AddChild(newL1Suite as ITlElement);
                     this.L1_CurrentSuite = newL1Suite;
 
@@ -600,9 +610,9 @@ namespace EX_Converter
                 this.L2_CurrentSuite = null;
                 this.currentCase = null;
 
-                if (L2Val == null)
+                if (L2Name == null)
                 {
-                    if ((name == null) && (actions == null) && (expected == null))
+                    if ((caseName == null) && (actions == null) && (expected == null))
                     {
                         if ((summary != null) || (preconditions != null) || (importance != null))
                         {
@@ -617,7 +627,7 @@ namespace EX_Converter
                             return;
                         }
                     }
-                    else if (name == null)
+                    else if (caseName == null)
                     {
                         //no new case name...
                         ReaderEvent(this, new ReaderEventArgs(LogType.Error, rowIndex,
@@ -633,7 +643,7 @@ namespace EX_Converter
                                             WARNING_InvalidImportanceValue));
                         }
                         //add new case to L1
-                        this.PushBackNewCase(this.L1_CurrentSuite, name, summary, preconditions, pairImportance.Key, 
+                        this.PushBackNewCase(this.L1_CurrentSuite, caseName, summary, preconditions, pairImportance.Key, 
                                                 actions, expected);
                         ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex,
                                 LOG_AddNewCaseL1 + this.GetShortName(this.currentCase) + LOG_Postfix));
@@ -649,11 +659,11 @@ namespace EX_Converter
                     }
                     else
                     {
-                        existingL2Suite = this.L1_CurrentSuite.FindSuite(L2Val);
+                        existingL2Suite = this.L1_CurrentSuite.FindSuite(L2Name);
                     }
                     if (existingL2Suite == null)
                     {
-                        TestSuite newL2Suite = new TestSuite(L2Val);
+                        TestSuite newL2Suite = new TestSuite(L2Name, L2Details);
                         this.L1_CurrentSuite.AddChild(newL2Suite as ITlElement);
                         this.L2_CurrentSuite = newL2Suite;
 
@@ -668,7 +678,7 @@ namespace EX_Converter
                     }
                     this.currentCase = null;
 
-                    if ((name == null) && (actions == null) && (expected == null))
+                    if ((caseName == null) && (actions == null) && (expected == null))
                     {
                         if ((summary != null) || (preconditions != null) || (importance != null))
                         {
@@ -683,7 +693,7 @@ namespace EX_Converter
                             return;
                         }
                     }
-                    else if (name == null)
+                    else if (caseName == null)
                     {
                         //no new case name...
                         ReaderEvent(this, new ReaderEventArgs(LogType.Error, rowIndex,
@@ -699,7 +709,7 @@ namespace EX_Converter
                                             WARNING_InvalidImportanceValue));
                         }
                         //add new case to L2
-                        this.PushBackNewCase(this.L2_CurrentSuite, name, summary, preconditions, pairImportance.Key, 
+                        this.PushBackNewCase(this.L2_CurrentSuite, caseName, summary, preconditions, pairImportance.Key, 
                                                 actions, expected);
                         ReaderEvent(this, new ReaderEventArgs(LogType.Normal, rowIndex,
                                 LOG_AddNewCaseL2 + this.GetShortName(this.currentCase) + LOG_Postfix));
@@ -713,7 +723,7 @@ namespace EX_Converter
         #region Read file method.
         public TestSuite Read()
         {
-            if (this.StartRowIndex > this.EndRowIndex)
+            if (this.startRowIndex > this.endRowIndex)
                 throw new ArgumentOutOfRangeException("End row number should not be less than start row number.");
 
             Application excelApplication = new Application();
@@ -736,71 +746,77 @@ namespace EX_Converter
                                 "Destination Excel file opened successfully."));
 
                 //Result test suite to return.
-                TestSuite resultTestSuite = new TestSuite(SUITE_DEFAULT_NAME);
+                TestSuite resultTestSuite = new TestSuite(SUITE_DEFAULT_NAME, String.Empty);
 
                 try
                 {
-                    Worksheet destSheet = (Worksheet)destWorkbook.Worksheets[this.ActiveSheetIndex];
+                    Worksheet destSheet = (Worksheet)destWorkbook.Worksheets[this.activeSheetIndex];
                     ReaderEvent(this, new ReaderEventArgs(LogType.Normal, 0,
                                 "Destination worksheet opened successfully."));
                     ReaderEvent(this, new ReaderEventArgs(LogType.Normal, 0, "Start parsing rows. (" 
-                        + this.StartRowIndex.ToString() + " - " + this.EndRowIndex.ToString() + ")"));
+                        + this.startRowIndex.ToString() + " - " + this.endRowIndex.ToString() + ")"));
 
-                    for (int row = this.StartRowIndex; row <= this.EndRowIndex; row++)
+                    for (int row = this.startRowIndex; row <= this.endRowIndex; row++)
                     {
                         #region Get strings from mapped cells.
-                        string L1Value = null;
-                        if ((!this.ReadCaseOnly) && (this.L1_FolderIndex != 0))
+                        string L1NameValue = null;
+                        if ((!this.ReadCaseOnly) && (this.L1NameColumnIndex != 0))
                         {
-                            L1Value = Convert.ToString(((Range)destSheet.Cells[row, this.L1_FolderIndex]).get_Value(missing));
+                            L1NameValue = Convert.ToString(((Range)destSheet.Cells[row, this.L1NameColumnIndex]).get_Value(missing));
                         }
 
-                        string L2Value = null;
-                        if ((this.L2_Enabled) && (this.L2_FolderIndex != 0))
+                        string L1DetailsValue = null;
+                        if ((!this.ReadCaseOnly) && (this.L1DetailsColumnIndex != 0))
                         {
-                            L2Value = Convert.ToString(((Range)destSheet.Cells[row, this.L2_FolderIndex]).get_Value(missing));
+                            L1DetailsValue = Convert.ToString(((Range)destSheet.Cells[row, this.L1DetailsColumnIndex]).get_Value(missing));
                         }
 
-                        string nameValue = null;
-                        if (this.NameColumnIndex != 0)
+                        string L2NameValue = null;
+                        if ((this.L2_Enabled) && (this.L2NameColumnIndex != 0))
                         {
-                            nameValue =
-                                Convert.ToString(((Range)destSheet.Cells[row, this.NameColumnIndex]).get_Value(missing));
+                            L2NameValue = Convert.ToString(((Range)destSheet.Cells[row, this.L2NameColumnIndex]).get_Value(missing));
+                        }
+
+                        string L2DetailsValue = null;
+                        if ((this.L2_Enabled) && (this.L2DetailsColumnIndex != 0))
+                        {
+                            L2DetailsValue = Convert.ToString(((Range)destSheet.Cells[row, this.L2DetailsColumnIndex]).get_Value(missing));
+                        }
+
+                        string caseNameValue = null;
+                        if (this.caseNameColumnIndex != 0)
+                        {
+                            caseNameValue = Convert.ToString(((Range)destSheet.Cells[row, this.caseNameColumnIndex]).get_Value(missing));
                         }
 
                         string summaryValue = null;
-                        if (this.SummaryColumnIndex != 0)
+                        if (this.summaryColumnIndex != 0)
                         {
-                            summaryValue =
-                                Convert.ToString(((Range)destSheet.Cells[row, this.SummaryColumnIndex]).get_Value(missing));
+                            summaryValue = Convert.ToString(((Range)destSheet.Cells[row, this.summaryColumnIndex]).get_Value(missing));
                         }
 
                         string preconditionsValue = null;
-                        if (this.PreconditionsColumnIndex != 0)
+                        if (this.preconditionsColumnIndex != 0)
                         {
-                            preconditionsValue =
-                                Convert.ToString(((Range)destSheet.Cells[row, this.PreconditionsColumnIndex]).get_Value(missing));
+                            preconditionsValue = Convert.ToString(((Range)destSheet.Cells[row, this.preconditionsColumnIndex]).get_Value(missing));
                         }
 
                         string importanceValue = null;
-                        if (this.ImportanceColumnIndex != 0)
+                        if (this.importanceColumnIndex != 0)
                         {
-                            importanceValue =
-                                Convert.ToString(((Range)destSheet.Cells[row, this.ImportanceColumnIndex]).get_Value(missing));
+                            importanceValue = Convert.ToString(((Range)destSheet.Cells[row, this.importanceColumnIndex]).get_Value(missing));
                         }
 
                         string actionsValue = null;
-                        if (this.ActionsColumnIndex != 0)
+                        if (this.actionsColumnIndex != 0)
                         {
-                            actionsValue =
-                                Convert.ToString(((Range)destSheet.Cells[row, this.ActionsColumnIndex]).get_Value(missing));
+                            actionsValue = Convert.ToString(((Range)destSheet.Cells[row, this.actionsColumnIndex]).get_Value(missing));
                         }
 
                         string expectedValue = null;
-                        if (this.ExpectedResultsColumnIndex != 0)
+                        if (this.expectedResultsColumnIndex != 0)
                         {
-                            expectedValue =
-                                Convert.ToString(((Range)destSheet.Cells[row, this.ExpectedResultsColumnIndex]).get_Value(missing));
+                            expectedValue = Convert.ToString(((Range)destSheet.Cells[row, this.expectedResultsColumnIndex]).get_Value(missing));
                         }
                         #endregion
 
@@ -808,21 +824,21 @@ namespace EX_Converter
                         {
                             //Call parse method "Case".
                             this.Parse_Case(row, resultTestSuite, 
-                                            nameValue, summaryValue, preconditionsValue, importanceValue, 
+                                            caseNameValue, summaryValue, preconditionsValue, importanceValue, 
                                             actionsValue, expectedValue);
                         }
                         else if (this.L2_Enabled)
                         {
                             //Call parse method "L1L2".
-                            this.Parse_L1L2(row, resultTestSuite, L1Value, L2Value,
-                                            nameValue, summaryValue, preconditionsValue, importanceValue, 
+                            this.Parse_L1L2(row, resultTestSuite, L1NameValue, L1DetailsValue, L2NameValue, L2DetailsValue,
+                                            caseNameValue, summaryValue, preconditionsValue, importanceValue, 
                                             actionsValue, expectedValue);
                         }
                         else
                         {
                             //Call parse method "L1".
-                            this.Parse_L1(row, resultTestSuite, L1Value, 
-                                            nameValue, summaryValue, preconditionsValue, importanceValue, 
+                            this.Parse_L1(row, resultTestSuite, L1NameValue, L1DetailsValue,
+                                            caseNameValue, summaryValue, preconditionsValue, importanceValue, 
                                             actionsValue, expectedValue);
                         }
 
